@@ -1,0 +1,33 @@
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
+
+target 'accountabill' do
+  # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for accountabill
+  pod 'FacebookCore'
+  pod 'FacebookLogin'
+  pod 'FacebookShare'
+  pod 'Firebase/Core'
+  pod 'Firebase/Auth'
+  pod 'Firebase/Database'
+  pod 'SwiftyCam'
+  pod 'Gifu'
+  pod 'Alamofire'
+  pod 'AlamofireImage'
+  pod 'SwiftyJSON'
+  pod 'UICircularProgressRing'
+  pod 'SCLAlertView'
+  
+  target 'accountabillTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+  target 'accountabillUITests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+end

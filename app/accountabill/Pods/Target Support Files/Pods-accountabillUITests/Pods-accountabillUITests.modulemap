@@ -1,0 +1,6 @@
+framework module Pods_accountabillUITests {
+  umbrella header "Pods-accountabillUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}
