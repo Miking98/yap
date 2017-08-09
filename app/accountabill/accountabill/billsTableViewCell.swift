@@ -39,16 +39,44 @@ class billsTableViewCell: UITableViewCell {
             //Setting paid/unpaid bill scenarios
             paidLabel.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi/2))
             
-            if bill.completed != nil && bill.completed! || bill.paid {
-                paidLabel.text = "Paid"
-                rectableView.backgroundColor = UIColor.init(red: 82.0/255.0, green: 194.0/255.0, blue: 161.0/255.0, alpha: 1.0)
-                billTotalLabel.textColor = UIColor.init(red: 82.0/255.0, green: 194.0/255.0, blue: 161.0/255.0, alpha: 1.0)
+            if bill.author != nil && bill.author!.uid != FirebaseOps.currentUser?.uid! {
+                FirebaseOps.getUsersPaymentStatusForBill(bill: bill) { (status, error) in
+                    if let error = error {
+                        print(error.localizedDescription)
+                    }
+                    else if let status = status {
+                        for (uid, _) in status{
+                            let payvalue = status[uid] as! [String:Any]
+                            if uid == FirebaseOps.currentUser?.uid! {
+                                if payvalue["paid"] as! Bool == true {
+                                    self.paidLabel.text = "Paid"
+                                    self.rectableView.backgroundColor = UIColor.init(red: 82.0/255.0, green: 194.0/255.0, blue: 161.0/255.0, alpha: 1.0)
+                                    self.billTotalLabel.textColor = UIColor.init(red: 82.0/255.0, green: 194.0/255.0, blue: 161.0/255.0, alpha: 1.0)
+                                }
+                                else {
+                                    self.paidLabel.text = "Incomplete"
+                                    self.rectableView.backgroundColor = UIColor.init(red: 200.0/255.0, green: 82.0/255.0, blue: 115.0/255.0, alpha: 1.0)
+                                    self.billTotalLabel.textColor = UIColor.init(red: 200.0/255.0, green: 82.0/255.0, blue: 115.0/255.0, alpha: 1.0)
+                                }
+                                break
+                            }
+                        }
+                    }
+                }
             }
             else {
-                paidLabel.text = "Incomplete"
-                rectableView.backgroundColor = UIColor.init(red: 200.0/255.0, green: 82.0/255.0, blue: 115.0/255.0, alpha: 1.0)
-                billTotalLabel.textColor = UIColor.init(red: 200.0/255.0, green: 82.0/255.0, blue: 115.0/255.0, alpha: 1.0)
+                if bill.completed != nil && bill.completed! {
+                    paidLabel.text = "Paid"
+                    rectableView.backgroundColor = UIColor.init(red: 82.0/255.0, green: 194.0/255.0, blue: 161.0/255.0, alpha: 1.0)
+                    billTotalLabel.textColor = UIColor.init(red: 82.0/255.0, green: 194.0/255.0, blue: 161.0/255.0, alpha: 1.0)
+                }
+                else {
+                    paidLabel.text = "Incomplete"
+                    rectableView.backgroundColor = UIColor.init(red: 200.0/255.0, green: 82.0/255.0, blue: 115.0/255.0, alpha: 1.0)
+                    billTotalLabel.textColor = UIColor.init(red: 200.0/255.0, green: 82.0/255.0, blue: 115.0/255.0, alpha: 1.0)
+                }
             }
+            
             
             if bill.author != nil {
                 FirebaseOps.getUser(user: bill.author!) { (user, error) in
