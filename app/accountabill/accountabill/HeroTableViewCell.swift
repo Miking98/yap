@@ -53,35 +53,24 @@ class HeroTableViewCell: UITableViewCell {
                 else if let status = status {
                     for (uid, _) in status{
                         let payvalue = status[uid] as! [String:Any]
-                        if payvalue["paid"] as! Bool == true{
-                            self.cellView.backgroundColor = UIColor(red: 255, green: 255, blue: 255, alpha: 1.0)
-                            self.moneyLabel.text = "Paid"
-                            self.amountOwedLabel.text = ""
-                        }
-                        else {
-                            self.cellView.backgroundColor = UIColor.init(red: 200.0/255.0, green: 82.0/255.0, blue: 115.0/255.0, alpha: 0.5)
-                            self.moneyLabel.text = "Owes"
-                            self.moneyLabel.textColor = UIColor.black
+                        if uid == self.user.uid {
+                            if payvalue["paid"] as! Bool == true {
+                                self.cellView.backgroundColor = UIColor(red: 255, green: 255, blue: 255, alpha: 1.0)
+                                self.moneyLabel.text = "Paid"
+                                self.amountOwedLabel.text = ""
+                            }
+                            else {
+                                self.cellView.backgroundColor = UIColor.init(red: 200.0/255.0, green: 82.0/255.0, blue: 115.0/255.0, alpha: 0.5)
+                                self.moneyLabel.text = "Owes"
+                                self.moneyLabel.textColor = UIColor.black
+                                self.amountOwedLabel.text = "$" + String(format: "%.2f", payvalue["amount"] as? Double ?? 0.00)
+                            }
+                            break
                         }
                     }
                 }
             }
             
-            FirebaseOps.getUsersPaymentStatusForBill(bill: bill) { (status, error) in
-                if let error = error {
-                    print(error.localizedDescription)
-                }
-                else if let status = status {
-                    for (uid, _) in status{
-                        if uid == self.user.uid{
-                            let userstatus = status[uid] as! [String:Any]
-                            self.amountOwedLabel.text = "$" + String(format: "%.2f", userstatus["amount"]! as? Double ?? 0.00)
-                            break
-                            
-                        }
-                    }
-                }
-            }
             
         }
         

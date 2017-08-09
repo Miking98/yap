@@ -189,60 +189,12 @@
                         <outlet property="sharebillsTagLine" destination="lng-8f-xdP" id="STC-PQ-e9Z"/>
                         <outlet property="stopPaying" destination="c5F-zd-goa" id="i2q-tT-qGK"/>
                         <outlet property="yapTitle" destination="cMg-ar-cGr" id="dzs-nR-88a"/>
-                        <segue destination="ozX-0I-G2H" kind="show" identifier="splashToLinkPayments" id="BHJ-tC-4gL"/>
-                        <segue destination="8vB-Re-SE2" kind="presentation" identifier="splashToFacebookLogin" id="Chw-a4-dzd"/>
+                        <segue destination="ozX-0I-G2H" kind="show" identifier="splashToSignUpLinkPayments" id="BHJ-tC-4gL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="168.80000000000001" y="176.76161919040482"/>
-        </scene>
-        <!--Facebook Login View Controller-->
-        <scene sceneID="s8y-dN-PZy">
-            <objects>
-                <viewController id="8vB-Re-SE2" customClass="facebookLoginViewController" customModule="accountabill" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="8dm-gw-6kr"/>
-                        <viewControllerLayoutGuide type="bottom" id="Lb6-XU-xoy"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="fJJ-yl-kK7">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="facebooklogin_screen" translatesAutoresizingMaskIntoConstraints="NO" id="mQV-aw-y7q">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uXL-gd-mWQ">
-                                <rect key="frame" x="0.0" y="59" width="96" height="5"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.42943360130321484" green="0.64829811883460642" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                            </view>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RVv-Fu-88L">
-                                <rect key="frame" x="41" y="459" width="292" height="65"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <connections>
-                                    <action selector="loginButton:" destination="8vB-Re-SE2" eventType="touchUpInside" id="pdH-zv-ng2"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Yap App with" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RbC-VF-fWd">
-                                <rect key="frame" x="219" y="295" width="105" height="17"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.96095943449999999" green="0.96847307680000005" blue="0.97647571560000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
-                                <color key="textColor" red="0.3533724844455719" green="0.36441436409950256" blue="0.38440084457397461" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <connections>
-                        <outlet property="firstLoadingView" destination="uXL-gd-mWQ" id="pzB-Lx-EXa"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="pPI-dd-PuC" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="784.79999999999995" y="-644.52773613193403"/>
         </scene>
         <!--Sign Up Link Payments View Controller-->
         <scene sceneID="DqL-8u-Qjo">
@@ -2968,7 +2920,6 @@
         <image name="checkmark_gif.gif" width="800" height="600"/>
         <image name="circle_icon_white" width="1164" height="1050"/>
         <image name="close_icon_white" width="894" height="836"/>
-        <image name="facebooklogin_screen" width="748" height="1334"/>
         <image name="group_icon_white" width="842" height="804"/>
         <image name="logo_icon" width="120" height="120"/>
         <image name="manual_icon_white" width="960" height="916"/>

@@ -59,7 +59,7 @@ class billDetailViewController: UIViewController, UICollectionViewDataSource, UI
         profileCollectionView.backgroundColor = UIColor.clear
         
         //receipt image formatting
-        receiptImage.image = #imageLiteral(resourceName: "profile_icon")// TODO - image of receipt
+        receiptImage.image = #imageLiteral(resourceName: "safeway") // TODO - image of receipt
         receiptImage.layer.borderColor = UIColor.white.cgColor
         receiptImage.layer.borderWidth = 3
         
@@ -228,7 +228,6 @@ class billDetailViewController: UIViewController, UICollectionViewDataSource, UI
                             }
                             else {
                                 self.payButton.isHidden = true
-                                
                             }
                             self.userReceivedAmounts[self.bill.author!.uid!]! += self.paid ? amount : 0
                         }
@@ -242,8 +241,8 @@ class billDetailViewController: UIViewController, UICollectionViewDataSource, UI
                     for (uid, value) in statuses {
                         if let value = value as? [String: Any] {
                             if !(value["paid"] as? Bool ?? false) {
-                                waiting = true
                                 if FirebaseOps.currentUser?.uid != uid {
+                                    waiting = true
                                     waitingAmount += value["amount"] as? Double ?? 0
                                 }
                             }

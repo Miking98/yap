@@ -8,7 +8,7 @@
 
 import UIKit
 
-class splashViewController: UIViewController, FacebookLoginDelegate {
+class splashViewController: UIViewController {
     
     
     @IBOutlet weak var yapTitle: UILabel!
@@ -68,20 +68,17 @@ class splashViewController: UIViewController, FacebookLoginDelegate {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-     
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "splashToFacebookLogin" {
-            let vc = segue.destination as! facebookLoginViewController
-            vc.delegate = self
-        }
-    }
+    
     @IBAction func facebookLoginButtonTouch(_ sender: Any) {
-        performSegue(withIdentifier: "splashToFacebookLogin", sender: self)
+        FacebookOps.userLogin(completion: { (success: Bool) -> Void in
+            if (success) {
+                self.performSegue(withIdentifier: "splashToSignUpLinkPayments", sender: nil)
+            }
+            else {
+                print("Error logging user into Facebook.")
+            }
+        })
     }
     
-    func onDismiss() {
-        performSegue(withIdentifier: "splashToLinkPayments", sender: self)
-    }
     
 }

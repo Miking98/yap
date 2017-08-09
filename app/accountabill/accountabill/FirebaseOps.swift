@@ -595,6 +595,7 @@ class FirebaseOps {
         FirebaseOps.ref.child("item").child(key).observeSingleEvent(of: .value, with: { (snapshot) in
             if (snapshot.value as? [String: AnyObject]) != nil {
                 item.update(snapshot: snapshot)
+                item.resetPerPersonPrice()
                 completion(item, nil)
             }
             else {
