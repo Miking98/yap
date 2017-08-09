@@ -68,7 +68,7 @@ class editBillScanViewController: UIViewController, UITableViewDelegate, UITable
         }
         
         // Set author to current user
-        bill.setAuthor(user: DefaultOps.currentUser!)
+        bill.setAuthor(user: FirebaseOps.currentUser!)
         // Auto-fill in bill items
         billNameFloatingTextField.text = bill.name ?? "Default Bill Name"
         dateLabel.text = bill.createdDatePrint() + " | " + bill.locationPrint()

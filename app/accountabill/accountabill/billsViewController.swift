@@ -23,7 +23,7 @@ class billsViewController: UIViewController, EmbeddedViewControllerReceiver, UIT
     var moocherbills: [Bill] = []
     var herobills: [Bill] = []
     var bills: [Bill] = []
-    var user = DefaultOps.currentUser!
+    var user = FirebaseOps.currentUser!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,7 +72,7 @@ class billsViewController: UIViewController, EmbeddedViewControllerReceiver, UIT
     
     
     func fetchMoocherBills(){
-        DefaultOps.getUserMoocherBills(user: DefaultOps.currentUser!) { (bills, error) in
+        FirebaseOps.getUserMoocherBills(user: FirebaseOps.currentUser!) { (bills, error) in
             if let error = error {
                 print("Error getting home timeline: " + error.localizedDescription)
             }
@@ -86,7 +86,7 @@ class billsViewController: UIViewController, EmbeddedViewControllerReceiver, UIT
     }
     
     func fetchHeroBills(){
-        DefaultOps.getUserHeroBills(user: DefaultOps.currentUser!) { (bills, error) in
+        FirebaseOps.getUserHeroBills(user: FirebaseOps.currentUser!) { (bills, error) in
             if let error = error {
                 print("Error getting home timeline: " + error.localizedDescription)
             }

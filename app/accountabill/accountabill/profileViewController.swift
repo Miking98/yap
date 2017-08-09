@@ -18,9 +18,18 @@ class profileViewController: UIViewController, EmbeddedViewControllerReceiver {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let currentUser = DefaultOps.currentUser!
+        let currentUser = FirebaseOps.currentUser!
         usernameLabel.text = currentUser.name!
-        profileImageView.image = DefaultOps.pictures(user: currentUser)
+        if FirebaseOps.currentUser?.photoURL != nil {
+            self.profileImageView.af_setImage(withURL: URL(string: (FirebaseOps.currentUser?.photoURL!)!)!, placeholderImage: #imageLiteral(resourceName: "profile_icon"), runImageTransitionIfCached: true, completion: nil)
+        }
+        else if FirebaseOps.currentUser?.facebookID != nil {
+            let imageURL = "https://graph.facebook.com/v2.10/"+(FirebaseOps.currentUser?.facebookID!)!+"/picture"
+            self.profileImageView.af_setImage(withURL: URL(string: imageURL)!, placeholderImage: #imageLiteral(resourceName: "profile_icon"), runImageTransitionIfCached: true, completion: nil)
+        }
+        else if FirebaseOps.currentUser?.facebookTaggableID != nil && FirebaseOps.currentUser?.photoURL != nil {
+            self.profileImageView.af_setImage(withURL: URL(string: (FirebaseOps.currentUser?.photoURL!)!)!, placeholderImage: #imageLiteral(resourceName: "profile_icon"))
+        }
     }
     
     //
@@ -31,7 +40,7 @@ class profileViewController: UIViewController, EmbeddedViewControllerReceiver {
     }
     
     @IBAction func logoutButtonTouch(_ sender: Any) {
-        DefaultOps.userLogout { (success: Bool) in
+        FirebaseOps.userLogout { (success: Bool) in
             if success {
                 print("Logged out successfully")
                 // Send user to Splash page

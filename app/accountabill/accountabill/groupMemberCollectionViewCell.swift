@@ -15,9 +15,17 @@ class groupMemberCollectionViewCell: UICollectionViewCell {
     
     var user: User!{
         didSet{
-            self.memberPhotoView.image = DefaultOps.pictures(user: user)
             memberPhotoView.clipsToBounds = true
-            //memberPhotoView.layer.cornerRadius = 40
+            if user.photoURL != nil {
+                self.memberPhotoView.af_setImage(withURL: URL(string: user.photoURL!)!, placeholderImage: #imageLiteral(resourceName: "profile_icon"), runImageTransitionIfCached: true, completion: nil)
+            }
+            else if user.facebookID != nil {
+                let imageURL = "https://graph.facebook.com/v2.10/"+user.facebookID!+"/picture"
+                self.memberPhotoView.af_setImage(withURL: URL(string: imageURL)!, placeholderImage: #imageLiteral(resourceName: "profile_icon"), runImageTransitionIfCached: true, completion: nil)
+            }
+            else if user.facebookTaggableID != nil && user.photoURL != nil {
+                self.memberPhotoView.af_setImage(withURL: URL(string: user.photoURL!)!, placeholderImage: #imageLiteral(resourceName: "profile_icon"))
+            }
         }
     }
 }

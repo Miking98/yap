@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
         SDKApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
         
-        if DefaultOps.userLoggedIn() {
+        if FirebaseOps.userLoggedIn() {
             // User is logged in
             print("User already logged in")
             let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
@@ -28,7 +28,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             window?.rootViewController = vc
         }
         
-        DefaultOps.initialize()
         return true
     }
     

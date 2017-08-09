@@ -36,7 +36,7 @@ class groupsViewController: UIViewController, EmbeddedViewControllerReceiver, UI
     }
     
     func fetchGroups() {
-        DefaultOps.getUserGroups(user: DefaultOps.currentUser!) { (groups, error) in
+        FirebaseOps.getUserGroups(user: FirebaseOps.currentUser!) { (groups, error) in
             if let error = error {
                 print(error.localizedDescription)
             }
@@ -52,7 +52,7 @@ class groupsViewController: UIViewController, EmbeddedViewControllerReceiver, UI
     }
     
     func fetchUsers(group: Group, index: Int) {
-        DefaultOps.getGroupUsers(group: group) { (users, error) in
+        FirebaseOps.getGroupUsers(group: group) { (users, error) in
             if let error = error {
                 print("error getting group members")
                 print(error)

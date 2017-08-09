@@ -46,7 +46,7 @@ struct FacebookGraphSearchUsers: GraphRequestProtocol {
         parameters?["q"] = query
         parameters?["type"] = "user"
         // Get Facebook access token
-        if let f_token = DefaultOps.currentUser?.facebookAuthenticationToken {
+        if let f_token = FirebaseOps.currentUser?.facebookAuthenticationToken {
             accessToken = AccessToken(authenticationToken: f_token)
         }
     }
@@ -84,10 +84,10 @@ struct FacebookGraphSearchFriends: GraphRequestProtocol {
         parameters?["fields"] = "email,name,picture"
         parameters?["limit"] = 5000
         // Get Facebook access token
-        if let f_token = DefaultOps.currentUser?.facebookAuthenticationToken {
+        if let f_token = FirebaseOps.currentUser?.facebookAuthenticationToken {
             accessToken = AccessToken(authenticationToken: f_token)
         }
-        if let f_userID = DefaultOps.currentUser?.facebookID {
+        if let f_userID = FirebaseOps.currentUser?.facebookID {
             userID = f_userID
             graphPath = userID! + graphPath
         }
@@ -129,10 +129,10 @@ struct FacebookGraphSearchTaggableFriends: GraphRequestProtocol {
         parameters?["fields"] = "name,picture"
         parameters?["limit"] = 5000
         // Get Facebook access token
-        if let f_token = DefaultOps.currentUser?.facebookAuthenticationToken {
+        if let f_token = FirebaseOps.currentUser?.facebookAuthenticationToken {
             accessToken = AccessToken(authenticationToken: f_token)
         }
-        if let f_userID = DefaultOps.currentUser?.facebookID {
+        if let f_userID = FirebaseOps.currentUser?.facebookID {
             userID = f_userID
             graphPath = userID! + graphPath
         }
@@ -162,7 +162,7 @@ class FacebookOps {
                 defaults.set(accessToken.userId, forKey: "facebookUserID")
                 let credential =  FacebookAuthProvider.credential(withAccessToken: accessToken.authenticationToken)
                 // Firebase authentication
-                DefaultOps.userLogin(credential: credential, completion: completion)
+                FirebaseOps.userLogin(credential: credential, completion: completion)
             }
         }
     }

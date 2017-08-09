@@ -243,14 +243,14 @@ class assignBillParticipantsViewController: UIViewController, UICollectionViewDa
     @IBAction func finishButtonTouch(_ sender: Any) {
         if finishButtonConfirmed {
             print("Finish button clicked")
-            DefaultOps.createBill(bill: bill, completion: { (error: Error?, newBill: Bill?) in
+            FirebaseOps.createBill(bill: bill, completion: { (error: Error?, newBill: Bill?) in
                 if let error = error {
                     print("Error creating bill")
                     print(error.localizedDescription)
                 }
                 else {
                     print("Success creating bill")
-                    DefaultOps.sendBill(bill: newBill!, completion: { (error: Error?) in
+                    FirebaseOps.sendBill(bill: newBill!, completion: { (error: Error?) in
                         if let error = error {
                             print("Error sending bill")
                             print(error.localizedDescription)

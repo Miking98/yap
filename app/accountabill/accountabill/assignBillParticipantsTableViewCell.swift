@@ -36,14 +36,13 @@ class assignBillParticipantsCollectionViewCell: UICollectionViewCell {
         didSet {
             let userVal = user!
             nameLabel.text = userVal.name
-            self.profileImageView.image = DefaultOps.pictures(user: user!)
-//            if userVal.photoURL != nil {
-//                profileImageView.af_setImage(withURL: URL(string: userVal.photoURL!)!, placeholderImage: #imageLiteral(resourceName: "profile_icon"), runImageTransitionIfCached: true, completion: nil)
-//            }
-//            else if userVal.facebookID != nil {
-//                let imageURL = "https://graph.facebook.com/v2.10/"+userVal.facebookID!+"/picture"
-//                profileImageView.af_setImage(withURL: URL(string: imageURL)!, placeholderImage: #imageLiteral(resourceName: "profile_icon"), runImageTransitionIfCached: true, completion: nil)
-//            }
+            if userVal.photoURL != nil {
+                profileImageView.af_setImage(withURL: URL(string: userVal.photoURL!)!, placeholderImage: #imageLiteral(resourceName: "profile_icon"), runImageTransitionIfCached: true, completion: nil)
+            }
+            else if userVal.facebookID != nil {
+                let imageURL = "https://graph.facebook.com/v2.10/"+userVal.facebookID!+"/picture"
+                profileImageView.af_setImage(withURL: URL(string: imageURL)!, placeholderImage: #imageLiteral(resourceName: "profile_icon"), runImageTransitionIfCached: true, completion: nil)
+            }
         }
     }
     

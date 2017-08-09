@@ -19,11 +19,15 @@ class editBillParticipantsSearchTableViewCell: UITableViewCell {
             profileImageView.layer.cornerRadius = profileImageView.frame.size.width / 2
             if let user = result as? User  {
                 nameLabel.text = user.name
-                if user.uid != nil {
-                    self.profileImageView.image = DefaultOps.pictures(user: user)
+                if user.photoURL != nil {
+                    profileImageView.af_setImage(withURL: URL(string: user.photoURL!)!, placeholderImage: #imageLiteral(resourceName: "profile_icon"), runImageTransitionIfCached: true, completion: nil)
+                }
+                else if user.facebookID != nil {
+                    let imageURL = "https://graph.facebook.com/v2.10/"+user.facebookID!+"/picture"
+                    profileImageView.af_setImage(withURL: URL(string: imageURL)!, placeholderImage: #imageLiteral(resourceName: "profile_icon"), runImageTransitionIfCached: true, completion: nil)
                 }
                 else if user.facebookTaggableID != nil && user.photoURL != nil {
-                    self.profileImageView.af_setImage(withURL: URL(string: user.photoURL!)!, placeholderImage: #imageLiteral(resourceName: "profile_icon"))
+                    profileImageView.af_setImage(withURL: URL(string: user.photoURL!)!, placeholderImage: #imageLiteral(resourceName: "profile_icon"))
                 }
             }
             else if let group = result as? Group {

@@ -18,7 +18,7 @@ class HeroTableViewCell: UITableViewCell {
     
     var user: User! {
         didSet {
-            DefaultOps.getUser(user: user!) { (user, error) in
+            FirebaseOps.getUser(user: user!) { (user, error) in
                 if let error = error {
                     print(error.localizedDescription)
                 }
@@ -28,7 +28,17 @@ class HeroTableViewCell: UITableViewCell {
                     self.user?.name = user.name
                     self.nameLabel.text = user.name
                     self.profilePicture.layer.cornerRadius = self.profilePicture.frame.size.width / 2
-                    self.profilePicture.image = DefaultOps.pictures(user: user)
+                    
+                    if user.photoURL != nil {
+                        self.profilePicture.af_setImage(withURL: URL(string: user.photoURL!)!, placeholderImage: #imageLiteral(resourceName: "profile_icon"), runImageTransitionIfCached: true, completion: nil)
+                    }
+                    else if user.facebookID != nil {
+                        let imageURL = "https://graph.facebook.com/v2.10/"+user.facebookID!+"/picture"
+                        self.profilePicture.af_setImage(withURL: URL(string: imageURL)!, placeholderImage: #imageLiteral(resourceName: "profile_icon"), runImageTransitionIfCached: true, completion: nil)
+                    }
+                    else if user.facebookTaggableID != nil && user.photoURL != nil {
+                        self.profilePicture.af_setImage(withURL: URL(string: user.photoURL!)!, placeholderImage: #imageLiteral(resourceName: "profile_icon"))
+                    }
                 }
             }
         }
@@ -36,7 +46,7 @@ class HeroTableViewCell: UITableViewCell {
     
     var bill:Bill! {
         didSet {
-            DefaultOps.getUsersPaymentStatusForBill(bill: bill) { (status, error) in
+            FirebaseOps.getUsersPaymentStatusForBill(bill: bill) { (status, error) in
                 if let error = error {
                     print(error.localizedDescription)
                 }
@@ -57,7 +67,7 @@ class HeroTableViewCell: UITableViewCell {
                 }
             }
             
-            DefaultOps.getUsersPaymentStatusForBill(bill: bill) { (status, error) in
+            FirebaseOps.getUsersPaymentStatusForBill(bill: bill) { (status, error) in
                 if let error = error {
                     print(error.localizedDescription)
                 }

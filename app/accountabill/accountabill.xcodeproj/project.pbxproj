@@ -40,6 +40,7 @@
 		92B63B921F293E77000AD8A5 /* assignBillItemsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B63B911F293E77000AD8A5 /* assignBillItemsTableViewCell.swift */; };
 		92B63B981F295188000AD8A5 /* assignBillItemsParticipantsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B63B971F295188000AD8A5 /* assignBillItemsParticipantsCollectionViewCell.swift */; };
 		92B63B9A1F2BBDC4000AD8A5 /* profileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B63B991F2BBDC4000AD8A5 /* profileViewController.swift */; };
+		92BD81A51F3AF4A100D2E5BC /* FirebaseOps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92BD81A41F3AF4A100D2E5BC /* FirebaseOps.swift */; };
 		92DFB1E71F19966B001EC630 /* homeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DFB1E61F19966B001EC630 /* homeViewController.swift */; };
 		92DFB1E91F1999D6001EC630 /* signUpEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DFB1E81F1999D6001EC630 /* signUpEmailViewController.swift */; };
 		92DFB1F21F199D88001EC630 /* FacebookOps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DFB1F11F199D88001EC630 /* FacebookOps.swift */; };
@@ -56,7 +57,6 @@
 		92F181E01F1B185A00EBBFA3 /* centralViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F181DF1F1B185A00EBBFA3 /* centralViewController.swift */; };
 		92F181E21F1B19E900EBBFA3 /* embeddedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F181E11F1B19E900EBBFA3 /* embeddedViewController.swift */; };
 		AB4741561F2949C700046F65 /* billsDetailCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4741551F2949C700046F65 /* billsDetailCollectionViewCell.swift */; };
-		AB746F0A1F33F8D10064C2FC /* DefaultOps.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB746F091F33F8D10064C2FC /* DefaultOps.swift */; };
 		AB7DCF721F2ABF18004C45EC /* billDetailItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7DCF711F2ABF18004C45EC /* billDetailItemTableViewCell.swift */; };
 		AB7DCF741F2C0AB9004C45EC /* HeroTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7DCF731F2C0AB9004C45EC /* HeroTableViewCell.swift */; };
 		AB7DCF761F2DCD26004C45EC /* taxTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7DCF751F2DCD26004C45EC /* taxTableViewCell.swift */; };
@@ -124,6 +124,7 @@
 		92B63B911F293E77000AD8A5 /* assignBillItemsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = assignBillItemsTableViewCell.swift; sourceTree = "<group>"; };
 		92B63B971F295188000AD8A5 /* assignBillItemsParticipantsCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = assignBillItemsParticipantsCollectionViewCell.swift; sourceTree = "<group>"; };
 		92B63B991F2BBDC4000AD8A5 /* profileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = profileViewController.swift; sourceTree = "<group>"; };
+		92BD81A41F3AF4A100D2E5BC /* FirebaseOps.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseOps.swift; sourceTree = "<group>"; };
 		92DFB1E61F19966B001EC630 /* homeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = homeViewController.swift; sourceTree = "<group>"; };
 		92DFB1E81F1999D6001EC630 /* signUpEmailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = signUpEmailViewController.swift; sourceTree = "<group>"; };
 		92DFB1F11F199D88001EC630 /* FacebookOps.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookOps.swift; sourceTree = "<group>"; };
@@ -141,7 +142,6 @@
 		92F181E11F1B19E900EBBFA3 /* embeddedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = embeddedViewController.swift; sourceTree = "<group>"; };
 		9F5AB3B48203D96C2ECEFCCE /* Pods-accountabill.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-accountabill.debug.xcconfig"; path = "Pods/Target Support Files/Pods-accountabill/Pods-accountabill.debug.xcconfig"; sourceTree = "<group>"; };
 		AB4741551F2949C700046F65 /* billsDetailCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = billsDetailCollectionViewCell.swift; sourceTree = "<group>"; };
-		AB746F091F33F8D10064C2FC /* DefaultOps.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultOps.swift; sourceTree = "<group>"; };
 		AB7DCF711F2ABF18004C45EC /* billDetailItemTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = billDetailItemTableViewCell.swift; sourceTree = "<group>"; };
 		AB7DCF731F2C0AB9004C45EC /* HeroTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeroTableViewCell.swift; sourceTree = "<group>"; };
 		AB7DCF751F2DCD26004C45EC /* taxTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = taxTableViewCell.swift; sourceTree = "<group>"; };
@@ -375,7 +375,7 @@
 				92F042921F1D9BA7006C0A44 /* BillItem.swift */,
 				228F882A1F206BC9004245C6 /* Group.swift */,
 				92A6A5CD1F26C25000EDCA01 /* Base.swift */,
-				AB746F091F33F8D10064C2FC /* DefaultOps.swift */,
+				92BD81A41F3AF4A100D2E5BC /* FirebaseOps.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -491,7 +491,7 @@
 				TargetAttributes = {
 					92AA066C1F198FBD00A4AA73 = {
 						CreatedOnToolsVersion = 8.3.2;
-						DevelopmentTeam = 9HHAY8NV6M;
+						DevelopmentTeam = HH2E4X7C7J;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -714,6 +714,7 @@
 				228F882F1F2862E6004245C6 /* groupMemberCollectionViewCell.swift in Sources */,
 				9257E5621F22D37700D12FFB /* LocationManager.swift in Sources */,
 				ABF5CFFC1F2FE7AC000A6435 /* initialGifViewController.swift in Sources */,
+				92BD81A51F3AF4A100D2E5BC /* FirebaseOps.swift in Sources */,
 				9220025D1F1B485C00AEF5EE /* signUpDoneViewController.swift in Sources */,
 				92A6A5D01F26C53C00EDCA01 /* editBillParticipantsViewController.swift in Sources */,
 				922002621F1B4AF500AEF5EE /* groupsCollectionViewCell.swift in Sources */,
@@ -746,7 +747,6 @@
 				228F882B1F206BC9004245C6 /* Group.swift in Sources */,
 				ABDC3E8B1F2E76AF00F684DD /* tipTableViewCell.swift in Sources */,
 				AB7DCF741F2C0AB9004C45EC /* HeroTableViewCell.swift in Sources */,
-				AB746F0A1F33F8D10064C2FC /* DefaultOps.swift in Sources */,
 				92F0428D1F1D8B0A006C0A44 /* Bill.swift in Sources */,
 				AB4741561F2949C700046F65 /* billsDetailCollectionViewCell.swift in Sources */,
 				92F0428F1F1D8F0C006C0A44 /* User.swift in Sources */,
@@ -904,12 +904,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = accountabill/accountabill.entitlements;
-				DEVELOPMENT_TEAM = 9HHAY8NV6M;
+				DEVELOPMENT_TEAM = HH2E4X7C7J;
 				INFOPLIST_FILE = accountabill/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\"";
-				PRODUCT_BUNDLE_IDENTIFIER = com.tmadruga.accountabill;
+				PRODUCT_BUNDLE_IDENTIFIER = com.miking98.accountabill;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -921,12 +921,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = accountabill/accountabill.entitlements;
-				DEVELOPMENT_TEAM = 9HHAY8NV6M;
+				DEVELOPMENT_TEAM = HH2E4X7C7J;
 				INFOPLIST_FILE = accountabill/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\"";
-				PRODUCT_BUNDLE_IDENTIFIER = com.tmadruga.accountabill;
+				PRODUCT_BUNDLE_IDENTIFIER = com.miking98.accountabill;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};

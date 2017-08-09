@@ -125,15 +125,20 @@ class homeViewController: SwiftyCamViewController, SwiftyCamViewControllerDelega
     }
     @IBAction func manualButtonTouch(_ sender: Any) {
         var items: [BillItem] = []
-        items.append(BillItem(key: nil, name: "++ Not Sharing ++", price: 0.00, quantity: nil, unitPrice: nil))
-        items.append(BillItem(key: nil, name: "24 Hrs Beef Noodle Soup", price: 41.90, quantity: nil, unitPrice: nil))
-        items.append(BillItem(key: nil, name: "Coke", price: 2.95, quantity: nil, unitPrice: nil))
-        items.append(BillItem(key: nil, name: "Crispy Calamari", price: 14.00, quantity: nil, unitPrice: nil))
-        items.append(BillItem(key: nil, name: "Panang Neua", price: 25.50, quantity: nil, unitPrice: nil))
-        parsedBill = Bill(key: nil, name: "Farmhouse", author: DefaultOps.currentUser!, completed: false, modifiedDate: Date(), createdDate: Date(), location: nil, items: [], receiptImage: "", tax: nil, tip: nil, subtotal: nil, total: nil, participants: [], group: nil)
+        items.append(BillItem(key: nil, name: "corn", price: 1.20, quantity: nil, unitPrice: nil))
+        items.append(BillItem(key: nil, name: "beans", price: 5.20, quantity: nil, unitPrice: nil))
+        items.append(BillItem(key: nil, name: "potatoes", price: 10.20, quantity: nil, unitPrice: nil))
+        items.append(BillItem(key: nil, name: "tomatoes", price: 20.00, quantity: nil, unitPrice: nil))
+        items.append(BillItem(key: nil, name: "chicken", price: 20.00, quantity: nil, unitPrice: nil))
+        items.append(BillItem(key: nil, name: "rice", price: 20.00, quantity: nil, unitPrice: nil))
+        items.append(BillItem(key: nil, name: "tacos", price: 20.00, quantity: nil, unitPrice: nil))
+        items.append(BillItem(key: nil, name: "bread", price: 20.00, quantity: nil, unitPrice: nil))
+        items.append(BillItem(key: nil, name: "apples", price: 20.00, quantity: nil, unitPrice: nil))
+        items.append(BillItem(key: nil, name: "pears", price: 20.00, quantity: nil, unitPrice: nil))
+        parsedBill = Bill(key: nil, name: "Safeway", author: FirebaseOps.currentUser!, completed: false, modifiedDate: Date(), createdDate: Date(), location: nil, items: [], receiptImage: "", tax: nil, tip: nil, subtotal: nil, total: nil, participants: [], group: nil)
         parsedBill!.setItems(items: items)
-        parsedBill!.setTax(tax: 7.17)
-        parsedBill!.setTip(tip: 0.00)
+        parsedBill!.setTax(tax: 1.23)
+        parsedBill!.setTip(tip: 5.23)
     }
 
     //
@@ -170,23 +175,18 @@ class homeViewController: SwiftyCamViewController, SwiftyCamViewControllerDelega
     // Send receipt to server for parsing
     //
     func processReceipt(receipt: UIImage) {
-        activitySpinner.show(text: "Uploading image")
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            self.activitySpinner.updateText(text: "Parsing receipt")
-        }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-            var items: [BillItem] = []
-            items.append(BillItem(key: nil, name: "++ NOT SHARING ++", price: 0.00, quantity: nil, unitPrice: nil))
-            items.append(BillItem(key: nil, name: "24 Hrs Beef Noodle Soup", price: 41.90, quantity: nil, unitPrice: nil))
-            items.append(BillItem(key: nil, name: "Coke", price: 2.95, quantity: nil, unitPrice: nil))
-            items.append(BillItem(key: nil, name: "Crispy Calamari", price: 14.00, quantity: nil, unitPrice: nil))
-            items.append(BillItem(key: nil, name: "Paneng Neua", price: 25.50, quantity: nil, unitPrice: nil))
-            self.parsedBill = Bill(key: nil, name: "Farmhouse", author: DefaultOps.currentUser!, completed: false, modifiedDate: Date(), createdDate: Date(), location: nil, items: [], receiptImage: "", tax: nil, tip: nil, subtotal: nil, total: nil, participants: [], group: nil)
-            self.parsedBill!.setItems(items: items)
-            self.parsedBill!.setTax(tax: 7.17)
-            self.parsedBill!.setTip(tip: 0.00)
-            self.parsedBill!.location = "San Francisco, CA"
-            self.performSegue(withIdentifier: "homeToEditBill", sender: self)
+        BackendOps.getReceiptItems(receipt: receipt, activitySpinner: activitySpinner) { (success: Bool, bill: Bill?) in
+            print("Done with backend")
+            if success {
+                print("Success!")
+                bill?.createdDate = Date()
+                bill?.modifiedDate = Date()
+                self.parsedBill = bill
+                self.performSegue(withIdentifier: "homeToEditBill", sender: self)
+            }
+            else {
+                print("Error parsing bill")
+            }
             self.activitySpinner.hide()
         }
     }

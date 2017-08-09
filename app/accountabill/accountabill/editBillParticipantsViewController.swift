@@ -208,7 +208,7 @@ class editBillParticipantsViewController: UIViewController, UICollectionViewData
         }
         
         // 1. Get Groups
-        DefaultOps.searchUserGroups(query: searchText, user: DefaultOps.currentUser!) { (groups: [Group]?, error: Error?) in
+        FirebaseOps.getUserGroups(user: FirebaseOps.currentUser!) { (groups, error) in
             if self.searchLastRequest == thisSearchRequest {
                 if error == nil {
                     print("Done getting groups")
@@ -268,9 +268,9 @@ class editBillParticipantsViewController: UIViewController, UICollectionViewData
         }
         
         // 3. Get Accountabill users
-        DefaultOps.searchUsers(query: searchText) { (users: [User]?, error: Error?) in
+        FirebaseOps.searchUsers(query: searchText) { (users: [User]?, error: Error?) in
             if error == nil {
-                print("Done getting Accountabill users")
+                print("Done getting Yap users")
                 var users = users!
                 var i = 0
                 var usersCount = users.count // Need to store usersCount in var b/c we are removing elements from it, so we must update the length of users dynamically
@@ -357,8 +357,8 @@ class editBillParticipantsViewController: UIViewController, UICollectionViewData
         // Buttons
         alert.addButton("Create", backgroundColor: UIColor.green, textColor: UIColor.white) {
             let groupName = nameTextField.text ?? ""
-            let group = Group(key: nil, name: groupName, author: DefaultOps.currentUser!, users: self.participants, bills: [], createdDate: Date())
-            DefaultOps.createGroup(group: group) { (error: Error?, newGroup: Group?) in
+            let group = Group(key: nil, name: groupName, author: FirebaseOps.currentUser!, users: self.participants, bills: [], createdDate: Date())
+            FirebaseOps.createGroup(group: group) { (error: Error?, newGroup: Group?) in
                 if let error = error {
                     print("Error creating group")
                     print(error)

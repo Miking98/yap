@@ -16,27 +16,21 @@ class tipTableViewCell: UITableViewCell {
 
     
     var tip: Double? {
-        didSet{
+        didSet {
             tipTotalLabel.text = "$" + String(format: "%.2f", tip!)
-            
         }
-        
     }
     
     
     
     var bill:Bill!{
-        didSet{
-            
-            
-            
-            
-            
-            DefaultOps.getUsersPaymentStatusForBill(bill: bill) { (status, error) in
+        didSet {
+            FirebaseOps.getUsersPaymentStatusForBill(bill: bill) { (status, error) in
                 if let error = error {
                     print(error.localizedDescription)
-                }else if let status = status{
-                    let payvalue = status[(DefaultOps.currentUser?.uid)!] as! [String:Any]
+                }
+                else if let status = status{
+                    let payvalue = status[(FirebaseOps.currentUser?.uid)!] as! [String:Any]
                         if payvalue["paid"] as! Bool == true{
                             self.tipView.backgroundColor = UIColor.init(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 0.5)
                         }else{

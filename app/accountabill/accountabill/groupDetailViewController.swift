@@ -9,7 +9,7 @@
 import UIKit
 
 class groupDetailViewController: UIViewController, UICollectionViewDataSource, UITableViewDataSource, UITableViewDelegate {
-
+    
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var memberCountLabel: UILabel!
     @IBOutlet weak var billCountLabel: UILabel!
@@ -74,40 +74,48 @@ class groupDetailViewController: UIViewController, UICollectionViewDataSource, U
     }
     
     func computePaymentStatuses() {
-        for b in group.bills {
-            DefaultOps.getUsersPaymentStatusForBill(bill: b) { (statuses: [String : Any]?, error: Error?) in
-                if let error = error {
-                    print("Error getting payment statuses for bill "+(b.name ?? ""))
-                    print(error)
-                }
-                else if let statuses = statuses {
-                    for (uid, value) in statuses {
-                        if let value = value as? [String: Any] {
-                            let paid = value["paid"] as? Bool ?? false
-                            let amount = value["amount"] as? Double ?? 0
-                            let timeTaken = value["timeTaken"] as? Int ?? 0
-                            self.userAmounts[uid]! += amount
-                            self.userCompletedAmounts[uid]! += paid ? amount : 0
-                            self.userCompletedPercentages[uid] = (100 * self.userCompletedAmounts[uid]!/self.userAmounts[uid]!).rounded()
-                            self.userReceivedAmounts[b.author!.uid!]! += paid ? amount : 0
-                            self.userTotalReceiveAmounts[b.author!.uid!]! += amount
-                            self.userReceivedPercentages[b.author!.uid!] = (100 * self.userReceivedAmounts[b.author!.uid!]!/self.userTotalReceiveAmounts[b.author!.uid!]!).rounded()
+        FirebaseOps.getGroupBills(group: group, completion: { (bills: [Bill]?, error: Error?) in
+            if let bills = bills {
+                for b in bills {
+                    FirebaseOps.getUsersPaymentStatusForBill(bill: b) { (statuses: [String : Any]?, error: Error?) in
+                        if let error = error {
+                            print("Error getting payment statuses for bill "+(b.name ?? ""))
+                            print(error)
+                        }
+                        else if let statuses = statuses {
+                            for (uid, value) in statuses {
+                                if let value = value as? [String: Any] {
+                                    let paid = value["paid"] as? Bool ?? false
+                                    let amount = value["amount"] as? Double ?? 0
+                                    let timeTaken = value["timeTaken"] as? Int ?? 0
+                                    self.userAmounts[uid]! += amount
+                                    self.userCompletedAmounts[uid]! += paid ? amount : 0
+                                    self.userCompletedPercentages[uid] = (100 * self.userCompletedAmounts[uid]!/self.userAmounts[uid]!).rounded()
+                                    self.userReceivedAmounts[b.author!.uid!]! += paid ? amount : 0
+                                    self.userTotalReceiveAmounts[b.author!.uid!]! += amount
+                                    self.userReceivedPercentages[b.author!.uid!] = (100 * self.userReceivedAmounts[b.author!.uid!]!/self.userTotalReceiveAmounts[b.author!.uid!]!).rounded()
+                                }
+                            }
+                            for user in self.group.users {
+                                if self.userAmounts[user.uid!] == 0.0 {
+                                    self.userCompletedPercentages[user.uid!] = 100.0
+                                }
+                                if self.userTotalReceiveAmounts[user.uid!] == 0.0 {
+                                    self.userReceivedPercentages[user.uid!] = 100.0
+                                }
+                            }
+                            self.collectionView.reloadData()
+                            self.tableView.reloadData()
                         }
                     }
-                    for user in self.group.users {
-                        if self.userAmounts[user.uid!] == 0.0 {
-                            self.userCompletedPercentages[user.uid!] = 100.0
-                        }
-                        if self.userTotalReceiveAmounts[user.uid!] == 0.0 {
-                            self.userReceivedPercentages[user.uid!] = 100.0
-                        }
-                    }
-                    self.collectionView.reloadData()
-                    self.tableView.reloadData()
                 }
             }
-        }
+            else {
+                print(error!)
+            }
+        })
     }
+    
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return group.users.count

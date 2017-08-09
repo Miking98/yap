@@ -31,9 +31,18 @@ class groupUsersCollectionViewCell: UICollectionViewCell {
             self.clipsToBounds = false
             self.layer.masksToBounds = false
             userNameLabel.text = user.name
-            self.photoView.image = DefaultOps.pictures(user: user)
             photoView.clipsToBounds = true
             photoView.layer.cornerRadius = photoView.frame.size.width / 2
+            if user.photoURL != nil {
+                self.photoView.af_setImage(withURL: URL(string: user.photoURL!)!, placeholderImage: #imageLiteral(resourceName: "profile_icon"), runImageTransitionIfCached: true, completion: nil)
+            }
+            else if user.facebookID != nil {
+                let imageURL = "https://graph.facebook.com/v2.10/"+user.facebookID!+"/picture"
+                self.photoView.af_setImage(withURL: URL(string: imageURL)!, placeholderImage: #imageLiteral(resourceName: "profile_icon"), runImageTransitionIfCached: true, completion: nil)
+            }
+            else if user.facebookTaggableID != nil && user.photoURL != nil {
+                self.photoView.af_setImage(withURL: URL(string: user.photoURL!)!, placeholderImage: #imageLiteral(resourceName: "profile_icon"))
+            }
         }
     }
     

@@ -51,7 +51,7 @@ class billsTableViewCell: UITableViewCell {
             }
             
             if bill.author != nil {
-                DefaultOps.getUser(user: bill.author!) { (user, error) in
+                FirebaseOps.getUser(user: bill.author!) { (user, error) in
                     if let error = error {
                         print(error.localizedDescription)
                     }
@@ -59,13 +59,23 @@ class billsTableViewCell: UITableViewCell {
                         self.user = user
                         self.createdLabel.text = self.user?.name
                         self.profilePicture.layer.cornerRadius = self.profilePicture.frame.size.width / 2
-                        self.profilePicture.image = DefaultOps.pictures(user: user)
+                        
+                        if user.photoURL != nil {
+                            self.profilePicture.af_setImage(withURL: URL(string: user.photoURL!)!, placeholderImage: #imageLiteral(resourceName: "profile_icon"), runImageTransitionIfCached: true, completion: nil)
+                        }
+                        else if user.facebookID != nil {
+                            let imageURL = "https://graph.facebook.com/v2.10/"+user.facebookID!+"/picture"
+                            self.profilePicture.af_setImage(withURL: URL(string: imageURL)!, placeholderImage: #imageLiteral(resourceName: "profile_icon"), runImageTransitionIfCached: true, completion: nil)
+                        }
+                        else if user.facebookTaggableID != nil && user.photoURL != nil {
+                            self.profilePicture.af_setImage(withURL: URL(string: user.photoURL!)!, placeholderImage: #imageLiteral(resourceName: "profile_icon"))
+                        }
                     }
                 }
             }
             
             if bill.group != nil {
-                DefaultOps.getGroup(group: bill.group!) { (group, error) in
+                FirebaseOps.getGroup(group: bill.group!) { (group, error) in
                     if let error = error {
                         print(error.localizedDescription)
                         self.groupNameMembersLabel.text = "\(groupnum) Member(s)"

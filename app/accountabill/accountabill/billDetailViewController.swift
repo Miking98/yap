@@ -59,7 +59,7 @@ class billDetailViewController: UIViewController, UICollectionViewDataSource, UI
         profileCollectionView.backgroundColor = UIColor.clear
         
         //receipt image formatting
-        receiptImage.image = DefaultOps.billPicture(bill: bill)
+        receiptImage.image = #imageLiteral(resourceName: "profile_icon")// TODO - image of receipt
         receiptImage.layer.borderColor = UIColor.white.cgColor
         receiptImage.layer.borderWidth = 3
         
@@ -83,7 +83,7 @@ class billDetailViewController: UIViewController, UICollectionViewDataSource, UI
         
         
         //if bill creater is the current user show a different table view
-        if bill.author?.uid == DefaultOps.currentUser?.uid{
+        if bill.author?.uid == FirebaseOps.currentUser?.uid{
             billDetailItemsTableView.isHidden = true
             heroTableView.isHidden = false
             payButton.isHidden = true
@@ -141,8 +141,9 @@ class billDetailViewController: UIViewController, UICollectionViewDataSource, UI
         )
         let alert = SCLAlertView(appearance: appearance)
         alert.addButton("Yes, pay now", backgroundColor: greenButtonBGColor, textColor: UIColor.white) {
-            DefaultOps.payBill(bill: self.bill, user: DefaultOps.currentUser!)
-            self.navigationController?.popViewController(animated: true)
+            FirebaseOps.payBill(bill: self.bill, user: FirebaseOps.currentUser!, completion: { (error: Error?) in
+                self.navigationController?.popViewController(animated: true)
+            })
         }
         alert.addButton("No, forget it", backgroundColor: UIColor.red, textColor: UIColor.white) {
         }
@@ -160,7 +161,7 @@ class billDetailViewController: UIViewController, UICollectionViewDataSource, UI
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat{
-        if tableView === heroTableView && bill.participants[indexPath.row].uid == DefaultOps.currentUser?.uid {
+        if tableView === heroTableView && bill.participants[indexPath.row].uid == FirebaseOps.currentUser?.uid {
             return 0.0
         }
         else {
@@ -207,7 +208,7 @@ class billDetailViewController: UIViewController, UICollectionViewDataSource, UI
     
     
     func computePaymentStatuses() {
-        DefaultOps.getUsersPaymentStatusForBill(bill: bill) { (statuses: [String : Any]?, error: Error?) in
+        FirebaseOps.getUsersPaymentStatusForBill(bill: bill) { (statuses: [String : Any]?, error: Error?) in
             var calculation = Double(0)
             if let error = error {
                 print("Error getting payment statuses for bill "+(self.bill.name ?? ""))
@@ -220,7 +221,7 @@ class billDetailViewController: UIViewController, UICollectionViewDataSource, UI
                         let amount = value["amount"] as? Double ?? 0
                         self.userAmounts[uid] = amount
                         calculation += amount
-                        if uid == DefaultOps.currentUser?.uid {
+                        if uid == FirebaseOps.currentUser?.uid {
                             self.paid = value["paid"] as? Bool ?? false
                             if self.paid == false{
                                 self.payButton.backgroundColor = UIColor(red: 200.0/255.0, green: 82.0/255.0, blue: 115.0/255.0, alpha: 1)
@@ -234,7 +235,7 @@ class billDetailViewController: UIViewController, UICollectionViewDataSource, UI
                     }
                     
                 }
-                if self.bill.author?.uid == DefaultOps.currentUser?.uid {
+                if self.bill.author?.uid == FirebaseOps.currentUser?.uid {
                     var waiting = false
                     var waitingAmount = 0.0
                     var receivedAmount = 0.0
@@ -242,12 +243,12 @@ class billDetailViewController: UIViewController, UICollectionViewDataSource, UI
                         if let value = value as? [String: Any] {
                             if !(value["paid"] as? Bool ?? false) {
                                 waiting = true
-                                if DefaultOps.currentUser?.uid != uid {
+                                if FirebaseOps.currentUser?.uid != uid {
                                     waitingAmount += value["amount"] as? Double ?? 0
                                 }
                             }
                             else {
-                                if DefaultOps.currentUser?.uid != uid {
+                                if FirebaseOps.currentUser?.uid != uid {
                                     receivedAmount += value["amount"] as? Double ?? 0
                                 }
                             }
@@ -266,11 +267,11 @@ class billDetailViewController: UIViewController, UICollectionViewDataSource, UI
                 else {
                     if self.paid == true{
                         self.yourTotalLabel.text = "You Paid"
-                        self.amountLabel.text = "$" + String(format: "%.2f", self.userAmounts[(DefaultOps.currentUser?.uid)!]!)
+                        self.amountLabel.text = "$" + String(format: "%.2f", self.userAmounts[(FirebaseOps.currentUser?.uid)!]!)
                     }
                     else{
                         self.yourTotalLabel.text = "Your Total"
-                        self.amountLabel.text = "$" + String(format: "%.2f", self.userAmounts[(DefaultOps.currentUser?.uid)!]!)
+                        self.amountLabel.text = "$" + String(format: "%.2f", self.userAmounts[(FirebaseOps.currentUser?.uid)!]!)
                     }
                 }
                 self.heroTableView.reloadData()
@@ -282,7 +283,7 @@ class billDetailViewController: UIViewController, UICollectionViewDataSource, UI
     }
     
     func fetchUsers(){
-        DefaultOps.getBillUsers(bill: bill!) { (users, error) in
+        FirebaseOps.getBillUsers(bill: bill!) { (users, error) in
             if let error = error{
                 print(error.localizedDescription)
             }
@@ -292,7 +293,7 @@ class billDetailViewController: UIViewController, UICollectionViewDataSource, UI
                 self.profileCollectionView.reloadData()
             }
         }
-        DefaultOps.getUser(user: bill.author!) { (user, error) in
+        FirebaseOps.getUser(user: bill.author!) { (user, error) in
             if let user = user {
                 self.author = user
             }
